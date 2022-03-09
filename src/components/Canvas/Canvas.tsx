@@ -5,10 +5,11 @@ import { useAtom } from 'jotai';
 import { Camera, getViewport, panCamera, zoomCamera } from '../../utils/camera';
 import pageStateAtom from '../../state/page-state';
 import cameraStateAtom from '../../state/camera-state';
+import LayerItem from '../Layer';
 
 const Canvas = () => {
     const canvasRef = React.useRef<HTMLDivElement>(null);
-    
+
     const [pageState, setPageState] = useAtom(pageStateAtom);
 
     const [viewport, setViewport] = React.useState({
@@ -69,11 +70,7 @@ const Canvas = () => {
     return (
         <StyledCanvas ref={canvasRef}>
             <Layers transform={transform}>
-            <div style={{
-                height: 128,
-                width: 128,
-                backgroundColor: '#18A0FB',
-            }} />
+                <LayerItem id="hello" />
             </Layers>
         </StyledCanvas>
     )

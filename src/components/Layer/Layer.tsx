@@ -1,49 +1,69 @@
 import * as React from 'react';
-import { Layer } from '../../state/page-state';
+import { useAtom } from 'jotai';
+import Draggable from 'react-draggable';
 
-const LayerItem = ({
-  layer,
-  key,
-  onBTFClick,
-  onBFClick,
-  onSBClick,
-  onSTBClick
-}: {
-  layer: Layer,
-  key: any,
-  onBTFClick: () => void,
-  onBFClick: () => void,
-  onSBClick: () => void,
-  onSTBClick: () => void
-}) => {
-  const [md, setMd] = React.useState(false);
+import pageStateAtom, { Layer } from '../../state/page-state';
+
+interface LayerItemProps {
+  id: string;
+}
+
+const LayerItem = ({ id }: LayerItemProps) => {
+  const [dragging, setDragging] = React.useState(false);
+  const [pageState, setPageState] = useAtom(pageStateAtom);
+
+  const layer = pageState.find((layer) => layer.id === id);
+
+  if (!layer) {
+    throw new Error(`Layer with id ${id} not found`);
+  }
+
+  const handleStart = () => {
+    setDragging(true);
+  };
+
+  const handleStop = () => {
+    setDragging(false);
+  };
+
+  //@ts-ignore 
+  const handleDrag = (e, ui) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    const { x, y } = e;
+    
+    setPageState((pageState) => ([
+      ...pageState.filter((layer) => layer.id !== id),
+      {
+        ...layer,
+        pos: {
+          x: layer.pos.x + ui.deltaX,
+          y: layer.pos.y + ui.deltaY,
+        }
+      }
+    ]));
+  };
+
+  React.useEffect(() => {
+    console.log(dragging);
+  }, [dragging])
+  
+
   return (
-    <div key={key} style={{
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      maxWidth: 512,
-      padding: "8px 16px",
-      borderBottom: '1px solid #ccc',
-      backgroundColor: md ? '#eee' : '#fff',
-    }}
-      onMouseDown={() => setMd(true)}
-      onMouseUp={() => setMd(false)}>
-      <p>{layer.name}</p>
+    <Draggable
+      handle=".handle"
+      defaultPosition={layer.pos}
+      position={layer.pos}
+      onStart={handleStart}
+      onDrag={handleDrag}
+      onStop={handleStop}>
       <div style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        gap: 8,
-      }}>
-        <button onClick={onBTFClick}>Bring to front</button>
-        <button onClick={onBFClick}>Bring forward</button>
-        <button onClick={onSBClick}>Send backward</button>
-        <button onClick={onSTBClick}>Send to back</button>
-      </div>
-    </div>
+        height: 128,
+        width: 128,
+        backgroundColor: '#18A0FB',
+      }}>Hello World</div>
+    </Draggable>
   )
 }
 
