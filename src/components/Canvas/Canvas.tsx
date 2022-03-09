@@ -2,12 +2,14 @@ import * as React from 'react'
 import styled from 'styled-components';
 import { useAtom } from 'jotai';
 
-import { Camera, getViewport, panCamera, zoomCamera } from '../../utils/camera';
+import { Camera, getViewport, panCamera, resetZoom, zoomCamera } from '../../utils/camera';
 import pageStateAtom from '../../state/page-state';
 import cameraStateAtom from '../../state/camera-state';
 import LayerItem from '../Layer';
 
 const Canvas = () => {
+
+
     const canvasRef = React.useRef<HTMLDivElement>(null);
 
     const [pageState, setPageState] = useAtom(pageStateAtom);

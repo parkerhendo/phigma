@@ -8,12 +8,14 @@ import Header from './components/Header';
 import LayerPanel from './components/LayerPanel';
 import Canvas from './components/Canvas';
 import InfoSidebar from './components/InfoSidebar';
+import useKeyboardShortcuts from './hooks/useKeyboardShortcuts';
 
 
 
 
 
 function App() {
+  useKeyboardShortcuts();
   return (
     <LayoutGrid>
       <Canvas />

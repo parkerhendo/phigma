@@ -69,7 +69,6 @@ export const zoomCamera = (camera: Camera, point: Point, dz: number): Camera => 
 
 export const zoomCameraTo = (camera: Camera, point: Point, zoom: number): Camera => {
     const p1 = screenToCanvas(point, camera);
-
     const p2 = screenToCanvas(point, { ...camera, z: zoom });
 
     return {
@@ -82,7 +81,7 @@ export const zoomCameraTo = (camera: Camera, point: Point, zoom: number): Camera
 export const zoomIn = (camera: Camera): Camera => {
     const i = Math.round(camera.z * 100) / 25;
 
-    const nextZoom = (i + 1) * 0.25;
+    const nextZoom = (i + 1) * 0.1;
 
     const center = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
@@ -92,7 +91,7 @@ export const zoomIn = (camera: Camera): Camera => {
 export const zoomOut = (camera: Camera): Camera => {
     const i = Math.round(camera.z * 100) / 25;
 
-    const nextZoom = (i - 1) * 0.25;
+    const nextZoom = (i - 1) * 0.1;
 
     const center = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
@@ -100,6 +99,9 @@ export const zoomOut = (camera: Camera): Camera => {
 };
 
 export const resetZoom = (camera: Camera): Camera => {
+    if (camera.z === 1) return camera;
+    
     const center = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    return zoomCamera(camera, center, camera.z - 1)
+
+    return zoomCameraTo(camera, center, 1);
 }
