@@ -25,20 +25,6 @@ const Canvas = () => {
 
     const [camera, setCamera] = useAtom(cameraStateAtom);
 
-    const updateViewport = () => {
-        if (!canvasRef.current) return;
-        const rect = canvasRef.current.getBoundingClientRect();
-        const vp = getViewport(camera, {
-            minX: rect.left,
-            minY: rect.top,
-            maxX: rect.right,
-            maxY: rect.bottom,
-            width: rect.width,
-            height: rect.height,
-        });
-
-        console.log(vp);
-    }
 
     const handleWheel = (e: WheelEvent) => {
         e.preventDefault();
@@ -85,9 +71,10 @@ const Layers = styled.div<{ transform: string }>`
 `;
 
 const StyledCanvas = styled.div`
+    position: absolute;
     z-index: -999;
-    grid-row: 2 / 4;
-    grid-column: 2;
+    height: 100vh;
+    width: 100vw;
     background: #e5e5e5;
 `;
 

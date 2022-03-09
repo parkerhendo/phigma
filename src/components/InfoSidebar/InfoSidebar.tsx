@@ -8,9 +8,10 @@ const InfoSidebar = () => {
 }
 
 const StyledInfoPanel = styled.div`
+  z-index: 999;
   background-color: #fff;
   grid-row: 2 / 4;
-  grid-column: 0 / 1;
+  grid-column: 3 / 4;
 `;
 
 

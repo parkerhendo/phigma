@@ -22,10 +22,18 @@ const LayerItem = ({ id }: LayerItemProps) => {
     //   onDrag={handleDrag}
     //   onStop={handleStop}>
       <div style={{
-        height: 128,
-        width: 128,
+        height: 400,
+        width: 400,
+        position: 'absolute',
+        top: window.innerHeight / 2,
+        left: window.innerWidth / 2,
+        fontSize: 64,
+        textAlign: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#18A0FB',
-      }}>Hello World</div>
+      }}>Welcome to Phigma</div>
     // </Draggable>
   )
 }

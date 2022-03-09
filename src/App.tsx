@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import {Toaster} from 'react-hot-toast';
+
 // import pageStateAtom, { Layer } from './state/page-state';
 
 import LayoutGrid from './components/ui/LayoutGrid';
@@ -22,6 +24,7 @@ function App() {
       <Header />
       <LayerPanel />
       <InfoSidebar />
+      <Toaster position='bottom-center'/>
     </LayoutGrid>
   );
 }
