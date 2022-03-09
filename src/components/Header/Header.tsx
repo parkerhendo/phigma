@@ -1,7 +1,10 @@
 import React from 'react';
+import { useAtomValue } from 'jotai';
 import styled from 'styled-components';
+import cameraStateAtom from '../../state/camera-state';
 
 const Header = () => {
+    const camera = useAtomValue(cameraStateAtom);
     return (
         <StyledHeader>
             <HeaderSection justify='flex-start'>
@@ -32,11 +35,19 @@ const Header = () => {
                 <span style={{ color: 'white' }}>Phigma</span>
             </HeaderSection>
             <HeaderSection>
+                <ZoomLevel>{Math.round(camera.z * 100)}%</ZoomLevel>
                 <ShareButton>Share</ShareButton>
             </HeaderSection>
         </StyledHeader>
     );
 };
+
+const ZoomLevel = styled.div`
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 16px;
+`;
 
 const HeaderSection = styled.div<{ justify?: "center" | "flex-start" | "flex-end" }>`
     width: 100%;
@@ -79,5 +90,5 @@ const ShareButton = styled.button`
     outline: none;
     margin-right: 24px; // TODO: fix this weird hack
     `;
-    
+
 export default Header;

@@ -16,9 +16,9 @@ import InfoSidebar from './components/InfoSidebar';
 function App() {
   return (
     <LayoutGrid>
+      <Canvas />
       <Header />
       <LayerPanel />
-      <Canvas />
       <InfoSidebar />
     </LayoutGrid>
   );
